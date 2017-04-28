@@ -32,7 +32,7 @@ public class XPManager implements Listener {
         }
 
         int xp = playerLevels.remove(player.getUniqueId());
-        player.setTotalExperience(xp);
+        setTotalExp(player, xp);
     }
 
     public void restoreAll() {
@@ -40,6 +40,54 @@ public class XPManager implements Listener {
                 .map(Bukkit::getPlayer)
                 .filter(Objects::nonNull)
                 .forEach(this::restore);
+    }
+
+    public void setTotalExp(Player player, int xp) {
+        player.setLevel(0);
+        player.setExp(0);
+        player.setTotalExperience(0);
+
+        int level = 0;
+        while (xp > requiredXP(level)) {
+            xp -= requiredXP(level);
+            level++;
+        }
+
+        player.setLevel(level);
+        player.setExp(((float) xp) / requiredXP(level));
+    }
+
+    /**
+     * Ported from Essentials. Why is Bukkit XP math so screwy?
+     * @param player The player to get the XP of
+     * @return The total XP of the player
+     */
+    public int getTotalExp(Player player) {
+        int exp = Math.round(requiredXP(player.getLevel()) * player.getExp());
+        int level = player.getLevel();
+
+        while (level > 0) {
+            level--;
+            exp += requiredXP(level);
+        }
+
+        if (exp < 0) {
+            exp = Integer.MAX_VALUE;
+        }
+
+        return exp;
+    }
+
+    private int requiredXP(int level) {
+        if (level <= 15) {
+            return (2 * level) + 7;
+        }
+
+        if (level >= 16 && level <= 30) {
+            return (5 * level) - 38;
+        }
+
+        return (9 * level) - 158;
     }
 
     public void setExactLevel(Player player, int level) {

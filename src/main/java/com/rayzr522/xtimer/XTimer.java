@@ -1,7 +1,8 @@
 package com.rayzr522.xtimer;
 
-import com.rayzr522.xtimer.command.CommandXTimer;
 import com.rayzr522.xtimer.command.CommandTimer;
+import com.rayzr522.xtimer.command.CommandXTimer;
+import com.rayzr522.xtimer.utils.CountdownManager;
 import com.rayzr522.xtimer.utils.XPManager;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -13,6 +14,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class XTimer extends JavaPlugin {
     private static XTimer instance;
     private XPManager xpManager;
+    private CountdownManager countdownManager;
 
     public static XTimer getInstance() {
         return instance;
@@ -23,6 +25,7 @@ public class XTimer extends JavaPlugin {
         instance = this;
 
         xpManager = new XPManager(this);
+        countdownManager = new CountdownManager(this);
 
         reload();
 
@@ -63,5 +66,9 @@ public class XTimer extends JavaPlugin {
 
     public XPManager getXPManager() {
         return xpManager;
+    }
+
+    public CountdownManager getCountdownManager() {
+        return countdownManager;
     }
 }

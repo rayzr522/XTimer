@@ -1,21 +1,24 @@
 package com.rayzr522.xtimer.command;
 
 import com.rayzr522.xtimer.XTimer;
+import com.rayzr522.xtimer.utils.CountdownManager;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.event.Listener;
 
 import static com.rayzr522.xtimer.utils.ArrayUtils.join;
 import static com.rayzr522.xtimer.utils.ArrayUtils.slice;
 
-public class CommandTimer implements CommandExecutor {
+public class CommandTimer implements CommandExecutor, Listener {
+
     private XTimer plugin;
 
     public CommandTimer(XTimer plugin) {
         this.plugin = plugin;
+        Bukkit.getPluginManager().registerEvents(this, plugin);
     }
 
     @Override
@@ -36,6 +39,13 @@ public class CommandTimer implements CommandExecutor {
             return true;
         }
 
+        CountdownManager cm = plugin.getCountdownManager();
+
+        if (cm.isCountingDown(player)) {
+            sender.sendMessage(plugin.getMessage("already-busy"));
+            return true;
+        }
+
         int seconds = 0;
         try {
             seconds = Integer.parseInt(args[1]);
@@ -49,28 +59,7 @@ public class CommandTimer implements CommandExecutor {
 
         final String command = join(slice(args, 2), " ").replace("{player}", player.getName());
 
-        final int startTime = seconds;
-
-        plugin.getXPManager().store(player);
-
-        new BukkitRunnable() {
-            int time = startTime;
-
-            @Override
-            public void run() {
-                if (time <= 0) {
-                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command);
-                    plugin.getXPManager().restore(player);
-
-                    cancel();
-                    return;
-                }
-
-                plugin.getXPManager().setExactLevel(player, time);
-                time--;
-            }
-        }.runTaskTimer(plugin, 0L, 20L);
-
+        cm.startCountdown(player, seconds, command);
 
         return true;
     }
