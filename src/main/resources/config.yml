@@ -1,0 +1,8 @@
+message-prefix: "&8\u00bb&b "
+
+messages:
+  # Shown when players try to use commands that they don't have permission to use
+  no-permission: '&cYou need the permission %s to do that!'
+  # Shown when players try to start another timer when they already have one going
+  already-busy: '&cFinish your current task first!'
+
