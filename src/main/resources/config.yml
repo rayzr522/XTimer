@@ -1,8 +1,13 @@
-message-prefix: "&8\u00bb&b "
+message-prefix: "&8\u00bb&a "
 
 messages:
   # Shown when players try to use commands that they don't have permission to use
-  no-permission: '&cYou need the permission %s to do that!'
+  no-permission: "&cYou need the permission %s to do that!"
   # Shown when players try to start another timer when they already have one going
-  already-busy: '&cFinish your current task first!'
-
+  already-busy: "&cFinish your current task first!"
+  # Usage for the admin command (/xtimer)
+  usage-admin: "Usage: &7/xtimer <reload|version>"
+  # Usage for the timer command (/timer)
+  usage-timer: "Usage: &7/timer <player> <seconds> <command>"
+  # Shown when the config is reloaded
+  config-reloaded: "The config has been reloaded!"

@@ -2,9 +2,9 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.rayzr522</groupId>
-	<artifactId>commandtimer</artifactId>
+	<artifactId>xtimer</artifactId>
 	<version>1.0.0</version>
-	<name>CommandTimer</name>
+	<name>XTimer</name>
 	<description>Run commands after a certain amount of time and show the timer through the XP bar</description>
 	<repositories>
 		<repository>

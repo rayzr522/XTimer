@@ -1,12 +1,12 @@
-main: com.rayzr522.commandtimer.CommandTimer
-name: CommandTimer
+main: com.rayzr522.xtimer.XTimer
+name: XTimer
 version: 1.0.0
 description: Run commands after a certain amount of time and show the timer through the XP bar
 author: Rayzr
-#depend: [CreativelyNamedLib]
-#commands:
-#  commandtimer:
-#    description: CommandTimer main command
-#    aliases: [alias1,alias2]
-#    usage: "/commandtimer [command]"
-#    permission: CommandTimer.main
+commands:
+  xtimer:
+    description: XTimer admin command
+    usage: "\u00A7cRayzr dun fracked somethin' up"
+  timer:
+    description: Starts a new timer
+    usage: "\u00A7cRayzr dun fracked somethin' up"
